@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const location = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -14,6 +17,7 @@ const Signup = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
+
           // ...
         })
         .catch((error) => {
@@ -22,6 +26,7 @@ const Signup = () => {
           // ..
         });
       console.log('User created!');
+      location('/');
     } catch (error) {
       console.error(error);
     }
